@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputView;
     private EditText username;
     private EditText passwd;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -51,17 +52,29 @@ public class MainActivity extends AppCompatActivity {
         username = dialogView.findViewById(R.id.item_username);
         passwd = dialogView.findViewById(R.id.item_passwd);
 
-        new AlertDialog.Builder(this)
+        View ok = dialogView.findViewById(R.id.btn_ok);
+        View cancel = dialogView.findViewById(R.id.btn_cance);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickOK();
+                alertDialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
-                .setTitle("Login")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        clickOK();
-                    }
-                })
-                .create()
-                .show();
+                .create();
+        alertDialog.show();
+
     }
 
     private void clickOK(){
